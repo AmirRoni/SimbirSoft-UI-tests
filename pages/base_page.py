@@ -12,7 +12,9 @@ class BasePage:
         return self.driver.find_element(*locator)
 
     def click(self, locator):
-        self.find(locator).click()
+        element = self.find(locator)
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+        element.click()
 
     def type(self, locator, text: str):
         element = self.find(locator)
