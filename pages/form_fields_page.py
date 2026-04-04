@@ -24,34 +24,43 @@ class FormFieldsPage(BasePage):
 
     def open_page(self):
         self.open(self.URL)
+        return self
 
     def enter_name(self, name: str):
         self.type(self.NAME_INPUT, name)
+        return self
 
     def enter_password(self, password: str):
         self.type(self.PASSWORD_INPUT, password)
+        return self
 
     def select_drinks(self, drinks: list[str]):
         for drink in drinks:
             locator = (By.XPATH, f"//input[@value='{drink}']")
             self.click(locator)
+        return self
 
     def select_color(self, color_name: str):
         locator = (By.XPATH, f"//input[@value='{color_name}']")
         self.click(locator)
+        return self
 
     def select_automation_option(self, value: str):
         select = Select(self.find(self.AUTOMATION_SELECT))
         select.select_by_value(value)
+        return self
 
     def enter_email(self, email: str):
         self.type(self.EMAIL_INPUT, email)
+        return self
 
     def enter_message(self, message: str):
         self.type(self.MESSAGE_TEXTAREA, message)
+        return self
 
     def submit_form(self):
         self.click(self.SUBMIT_BUTTON)
+        return self
 
     def get_alert_text_and_accept(self, timeout=10) -> str:
         alert = WebDriverWait(self.driver, timeout).until(EC.alert_is_present())
