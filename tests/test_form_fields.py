@@ -11,7 +11,10 @@ def test_fill_form(driver):
     page.select_color("Yellow")
     page.select_automation_option("yes")
     page.enter_email("molibdenum@mail.ru")
-    page.enter_message("Hello Hi")
+
+    message = page.build_message_from_automation_tools()
+    page.enter_message(message)
+
     page.submit_form()
 
     alert_text = page.get_alert_text_and_accept()

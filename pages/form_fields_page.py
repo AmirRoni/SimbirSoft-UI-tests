@@ -17,6 +17,11 @@ class FormFieldsPage(BasePage):
     AUTOMATION_SELECT = (By.ID, "automation")
     SUBMIT_BUTTON = (By.ID, "submit-btn")
 
+    AUTOMATION_TOOLS_ITEMS = (
+        By.XPATH,
+        "//*[normalize-space()='Automation tools']/following-sibling::ul[1]/li"
+    )
+
     def open_page(self):
         self.open(self.URL)
 
@@ -53,3 +58,20 @@ class FormFieldsPage(BasePage):
         text = alert.text
         alert.accept()
         return text
+
+    def get_automation_tools(self) -> list[str]:
+        elements = self.driver.find_elements(*self.AUTOMATION_TOOLS_ITEMS)
+        texts = []
+
+        for element in elements:
+            text = element.text.strip()
+            if text:
+                texts.append(text)
+
+        return texts
+
+    def build_message_from_automation_tools(self) -> str:
+        tools = self.get_automation_tools()
+        tools_count = len(tools)
+        longest_tool = max(tools, key=len)
+        return f"{tools_count} {longest_tool}"
