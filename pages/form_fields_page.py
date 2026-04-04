@@ -4,19 +4,19 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
+from pages.elements import InputElement, ButtonElement
 
 
 class FormFieldsPage(BasePage):
     URL = "https://practice-automation.com/form-fields/"
 
-    NAME_INPUT = (By.ID, "name-input")
-    PASSWORD_INPUT = (By.XPATH, "//input[@type='password']")
-    EMAIL_INPUT = (By.ID, "email")
-    MESSAGE_TEXTAREA = (By.CSS_SELECTOR, "textarea#message")
+    name_input = InputElement((By.ID, "name-input"))
+    password_input = InputElement((By.XPATH, "//input[@type='password']"))
+    email_input = InputElement((By.ID, "email"))
+    message_textarea = InputElement((By.CSS_SELECTOR, "textarea#message"))
+    submit_button = ButtonElement((By.ID, "submit-btn"))
 
     AUTOMATION_SELECT = (By.ID, "automation")
-    SUBMIT_BUTTON = (By.ID, "submit-btn")
-
     AUTOMATION_TOOLS_ITEMS = (
         By.XPATH,
         "//*[normalize-space()='Automation tools']/following-sibling::ul[1]/li"
@@ -27,11 +27,11 @@ class FormFieldsPage(BasePage):
         return self
 
     def enter_name(self, name: str):
-        self.type(self.NAME_INPUT, name)
+        self.name_input.set(self, name)
         return self
 
     def enter_password(self, password: str):
-        self.type(self.PASSWORD_INPUT, password)
+        self.password_input.set(self, password)
         return self
 
     def select_drinks(self, drinks: list[str]):
@@ -51,15 +51,15 @@ class FormFieldsPage(BasePage):
         return self
 
     def enter_email(self, email: str):
-        self.type(self.EMAIL_INPUT, email)
+        self.email_input.set(self, email)
         return self
 
     def enter_message(self, message: str):
-        self.type(self.MESSAGE_TEXTAREA, message)
+        self.message_textarea.set(self, message)
         return self
 
     def submit_form(self):
-        self.click(self.SUBMIT_BUTTON)
+        self.submit_button.click(self)
         return self
 
     def get_alert_text_and_accept(self, timeout=10) -> str:
