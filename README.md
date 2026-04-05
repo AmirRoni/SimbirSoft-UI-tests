@@ -1,3 +1,35 @@
+### Стек:
+- Python 3
+- Pytest
+- Selenium WebDriver
+- Allure
+
+Что покрыто:
+- позитивный тест отправки формы
+- негативный тест проверки обязательного поля Name
+- smoke-тест открытия example.com
+
+Паттерны:
+- Page Object Model
+- Page Factory
+- Fluent interface
+
+Установка зависимостей:
+`pip install -r requirements.txt`
+
+Запуск всех тестов:
+`pytest -v`
+
+Запуск тестов с генерацией Allure results:
+`pytest --alluredir=allure-results`
+
+Открытие Allure-отчета:
+`allure serve allure-results`
+
+Скриншот Allure-отчета приложен в проект в папку `screenshots`
+
+---
+
 # Тест-кейсы
 
 ---
@@ -14,10 +46,9 @@
 3. В списке What is your favorite drink? выбрать Milk и Coffee.
 4. В списке What is your favorite color? выбрать Yellow.
 5. В поле Do you like automation? выбрать значение yes.
-6. Заполнить поле Email значением molibdenum@mail.ru
-.
-В поле Message ввести строку, сформированную по блоку Automation tools на странице. Итоговое значение: 5 Katalon Studio.
-Нажать кнопку Submit.
+6. Заполнить поле Email значением molibdenum@mail.ru.
+7. В поле Message ввести строку, сформированную по блоку Automation tools на странице. Итоговое значение: 5 Katalon Studio.
+8. Нажать кнопку Submit.
 
 Ожидаемый результат:
 Появляется alert с текстом "Message received!"
@@ -36,10 +67,9 @@
 3. В списке What is your favorite drink? выбрать Milk и Coffee.
 4. В списке What is your favorite color? выбрать Yellow.
 5. В поле Do you like automation? выбрать значение yes.
-6. Заполнить поле Email значением molibdenum@mail.ru
-.
-В поле Message ввести строку, сформированную по блоку Automation tools на странице. Итоговое значение: 5 Katalon Studio.
-Нажать кнопку Submit.
+6. Заполнить поле Email значением molibdenum@mail.ru.
+7. В поле Message ввести строку, сформированную по блоку Automation tools на странице. Итоговое значение: 5 Katalon Studio.
+8. Нажать кнопку Submit.
 
 Ожидаемый результат:
 Форма не отправляется. Alert с текстом "Message received!" не появляется. Для поля Name срабатывает браузерная проверка обязательного заполнения, поле не проходит валидацию.
