@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -10,17 +11,18 @@ from pages.elements import InputElement, ButtonElement
 class FormFieldsPage(BasePage):
     URL = "https://practice-automation.com/form-fields/"
 
-    name_input = InputElement((By.ID, "name-input"))
-    password_input = InputElement((By.XPATH, "//input[@type='password']"))
-    email_input = InputElement((By.ID, "email"))
-    message_textarea = InputElement((By.CSS_SELECTOR, "textarea#message"))
-    submit_button = ButtonElement((By.ID, "submit-btn"))
-
+    NAME_INPUT = (By.ID, "name-input")
     AUTOMATION_SELECT = (By.ID, "automation")
     AUTOMATION_TOOLS_ITEMS = (
         By.XPATH,
         "//*[normalize-space()='Automation tools']/following-sibling::ul[1]/li"
     )
+
+    name_input = InputElement((By.ID, "name-input"))
+    password_input = InputElement((By.XPATH, "//input[@type='password']"))
+    email_input = InputElement((By.ID, "email"))
+    message_textarea = InputElement((By.CSS_SELECTOR, "textarea#message"))
+    submit_button = ButtonElement((By.ID, "submit-btn"))
 
     def open_page(self):
         self.open(self.URL)
@@ -84,3 +86,13 @@ class FormFieldsPage(BasePage):
         tools_count = len(tools)
         longest_tool = max(tools, key=len)
         return f"{tools_count} {longest_tool}"
+
+    def is_alert_present(self, timeout=2) -> bool:
+        try:
+            WebDriverWait(self.driver, timeout).until(EC.alert_is_present())
+            return True
+        except TimeoutException:
+            return False
+
+    def get_name_validation_message(self) -> str:
+        return self.find(self.NAME_INPUT).get_attribute("validationMessage")
